@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page with Role-Based Access</title>
+    <link rel="stylesheet" href="styls.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="login-button">Login</button>
+            <p class="forgot-password"><a href="#">Forgot password?</a></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Collect form data
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                // Simulate an API request to backend
+                const response = await fetch('http://your-backend-api-url/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const token = data.token;
+                    const role = data.role; // Role from the backend (e.g., admin or user)
+
+                    // Store the token and role in local storage
+                    localStorage.setItem('authToken', token);
+                    localStorage.setItem('userRole', role);
+
+                    // Redirect based on role
+                    if (role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';  // Redirect to admin page
+                    } else {
+                        window.location.href = 'user-dashboard.html';   // Redirect to user page
+                    }
+                } else {
+                    alert('Login failed. Please check your credentials.');
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

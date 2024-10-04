@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Picture</title>
+    <link rel="stylesheet" href="wd2.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar (optional if you want to keep consistent layout) -->
+        <div class="sidebar">
+            <h2>User Dashboard</h2>
+            <ul>
+                <li><a href="dashboard.html#schedule">Schedule</a></li>
+                <li><a href="dashboard.html#milestones">Milestones Achieved</a></li>
+                <li><a href="dashboard.html#attendance">Attendance</a></li>
+                <li><a href="dashboard.html#salary">Salary</a></li>
+                <li><a href="dashboard.html#location">Work Location</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <h2>Upload Your Picture</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <input type="file" id="workImage" name="workImage" accept="image/*" required>
+                <button type="submit">Upload Picture</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript for handling file upload -->
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('workImage').files[0];
+            if (fileInput) {
+                alert('File uploaded successfully.');
+                // Implement actual file upload logic here, such as sending the file to a server.
+            } else {
+                alert('Please select a file to upload.');
+            }
+        });
+    </script>
+</body>
+</html>
